@@ -1,0 +1,25 @@
+# async handler
+asyncio==3.4.3
+openai
+scrubadub
+requests
+# progress tracking
+tqdm==4.66.1
+
+# llm adapter
+litellm==1.21.7
+
+# text extraction
+trafilatura==1.7.0
+
+# duckduckgo
+duckduckgo_search==4.4.3
+
+# PDFs
+PyPDF2==3.0.1
+
+# Telegram
+python-telegram-bot==20.8
+
+# YouTube
+youtube_transcript_api==0.6.2
