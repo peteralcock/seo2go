@@ -1,24 +1,16 @@
-def openai_api_calculate_cost(usage,model="gpt-3.5-turbo-16k"):
+def openai_api_calculate_cost(usage,model="gpt-4-1106-preview"):
     pricing = {
-        'gpt-3.5-turbo-4k': {
-            'prompt': 0.0015,
+        'gpt-3.5-turbo-1106': {
+            'prompt': 0.001,
             'completion': 0.002,
         },
-        'gpt-3.5-turbo-16k': {
-            'prompt': 0.003,
-            'completion': 0.004,
+        'gpt-4-1106-preview': {
+            'prompt': 0.01,
+            'completion': 0.03,
         },
-        'gpt-4-8k': {
+        'gpt-4': {
             'prompt': 0.03,
             'completion': 0.06,
-        },
-        'gpt-4-32k': {
-            'prompt': 0.06,
-            'completion': 0.12,
-        },
-        'text-embedding-ada-002-v2': {
-            'prompt': 0.0001,
-            'completion': 0.0001,
         }
     }
 
@@ -27,11 +19,14 @@ def openai_api_calculate_cost(usage,model="gpt-3.5-turbo-16k"):
     except KeyError:
         raise ValueError("Invalid model specified")
 
-    prompt_cost = usage['prompt_tokens'] * model_pricing['prompt'] / 1000
-    completion_cost = usage['completion_tokens'] * model_pricing['completion'] / 1000
+    prompt_cost = usage.prompt_tokens * model_pricing['prompt'] / 1000
+    completion_cost = usage.completion_tokens * model_pricing['completion'] / 1000
 
     total_cost = prompt_cost + completion_cost
-    print(f"\nTokens used:  {usage['prompt_tokens']:,} prompt + {usage['completion_tokens']:,} completion = {usage['total_tokens']:,} tokens")
+    # round to 6 decimals
+    total_cost = round(total_cost, 6)
+
+    print(f"\nTokens used:  {usage.prompt_tokens:,} prompt + {usage.completion_tokens:,} completion = {usage.total_tokens:,} tokens")
     print(f"Total cost for {model}: ${total_cost:.4f}\n")
 
     return total_cost
