@@ -1,3 +1,14 @@
+import tiktoken
+
+def count_tokens_with_tiktoken(text, model_name="gpt-3.5-turbo"):
+    """Return the number of tokens in a text string using tiktoken."""
+    encoding = tiktoken.encoding_for_model(model_name)
+    return len(encoding.encode(text))
+
+text_sample = "ChatGPT is great!"
+tokens = count_tokens_with_tiktoken(text_sample)
+print(f"'{text_sample}' consists of {tokens} tokens.")
+
 def openai_api_calculate_cost(usage,model="gpt-4-1106-preview"):
     pricing = {
         'gpt-3.5-turbo-1106': {
